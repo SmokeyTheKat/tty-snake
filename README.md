@@ -26,7 +26,7 @@ $ ttySnake
 ```
 anywhere. If normal install use:
 ```
-/Install/Director $./main
+/Install/Director$ ./main
 ```
 
 ## Contorls
