@@ -95,19 +95,29 @@ void push_snake(snake* s, ddVec2 nv)
 	shift_snake(s);
 	s->snakePoss[0] = nv;
 }
-void move_snake(snake* s)
+void move_snake(snake* s, bool* m)
 {
 	ddVec2 nv = make_ddVec2(s->snakePoss[0].x+s->snakeVel.x,
 					s->snakePoss[0].y+s->snakeVel.y);
-	pop_snake(s);
+	if (!(*m))
+	{
+		pop_snake(s);
+	}
+	else
+		(*m) = false;
 	push_snake(s, nv);
 }
 
 ddKeyInfo c_input;
+bool gameRun = true;
 
 void* read_input(void* __vp)
 {
-	for(;;) c_input = ddKey_getch();
+	for(;;)
+	{
+		c_input = ddKey_getch();
+		if (c_input == DDK_p) gameRun = !gameRun;
+	}
 }
 
 ddVec2 random_food(void)
@@ -126,6 +136,7 @@ void draw_food(ddVec2 f)
 }
 void snake_eat_food(snake* s, ddVec2* f)
 {
+/*
 	*f = random_food();
 	draw_food(*f);
 	if (s->snakeLength+1 > s->snakeCapacity) return;
@@ -133,6 +144,14 @@ void snake_eat_food(snake* s, ddVec2* f)
 	shift_snake(s);
 	s->snakePoss[0] = nv;
 	s->snakeLength++;
+*/
+}
+bool snake_bite_self(snake* s)
+{
+	for (int i = 0; i < s->snakeLength; i++)
+		for (int j = 0; j < s->snakeLength; j++)
+			if (ddVec2_compare(s->snakePoss[i], s->snakePoss[j]) && i != j) return true;
+	return false;
 }
 
 void main_game(int _c)
@@ -158,6 +177,7 @@ void main_game(int _c)
 	cursor_home();
 	usleep(dt);
 	clear_snake_head(pl);
+	bool eatfood = false;
 	for (;;)
 	{
 		if (c_input == DDK_UP && pl.snakeVel.y != 1)
@@ -180,16 +200,47 @@ void main_game(int _c)
 			pl.snakeVel = make_ddVec2(1,0);
 			c_input = null;
 		}
-		move_snake(&pl);
+		else if (c_input == DDK_r)
+		{
+			c_input = null;
+			main_game(_c);
+			return;
+		}
+		move_snake(&pl, &eatfood);
 		draw_snake(pl);
+		if (!gameRun) {while(!gameRun);};
 		if (pl.snakePoss[0].x < 12)
 		{
-			ddKey_getch();
+			main_game(_c);
+			return;
+		}
+		else if (pl.snakePoss[0].x > 72)
+		{
+			main_game(_c);
+			return;
+		}
+		else if (pl.snakePoss[0].y < 10)
+		{
+			main_game(_c);
+			return;
+		}
+		else if (pl.snakePoss[0].y > 43)
+		{
+			main_game(_c);
+			return;
+		}
+		else if (snake_bite_self(&pl))
+		{
+			main_game(_c);
 			return;
 		}
 		if (ddVec2_compare(pl.snakePoss[0], food))
 		{
-			snake_eat_food(&pl, &food);
+			//snake_eat_food(&pl, &food);
+			eatfood = true;
+			food = random_food();
+			draw_food(food);
+			
 		}
 		cursor_home();
 		usleep(dt);
