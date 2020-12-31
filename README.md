@@ -1,6 +1,6 @@
 # ttySnake
 
-simple snake game made using my ddCLib repo.
+Simple terminal snake game yo.
 
 ## Compalaition
 
