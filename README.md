@@ -8,13 +8,13 @@ make targets
 | Target | Description |
 |-------:|-------------|
 | _(none)_ | complies main |
-| full | addes ttySnake to /usr/bin/ |
-| remove | removes ttySnake from /usr/bin/ |
+| install | addes tty-snake to /usr/bin/ |
+| remove | removes tty-snake from /usr/bin/ |
 
 
 Just use:
 ```
-$ make full
+$ make install 
 ```
 to use anywhere.
 
@@ -22,7 +22,7 @@ to use anywhere.
 
 If full make, then use:
 ```
-$ ttySnake
+$ tty-snake 
 ```
 anywhere. If normal install use:
 ```
