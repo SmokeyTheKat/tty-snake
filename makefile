@@ -1,8 +1,7 @@
 #compile the shit yo
-install:
-	gcc ./src/main.c -o ./main -lm -lpthread
-full:
-	gcc ./src/main.c -o ./main -lm -lpthread
-	cp ./main /usr/bin/ttySnake
+all:
+	gcc ./src/main.c -o ./tty-snake -lm -lpthread
+install: all
+	sudo cp ./tty-snake /usr/bin/tty-snake
 remove:
-	rm /usr/bin/ttySnake
+	sudo rm /usr/bin/tty-snake

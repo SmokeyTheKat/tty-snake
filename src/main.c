@@ -1,12 +1,12 @@
-#include <ddcString.h>
-#include <ddcPrint.h>
-#include <ddcTime.h>
-#include <ddcDef.h>
-#include <ddcArguments.h>
-#include <ddcApplication.h>
-#include <ddcCursor.h>
-#include <ddcKeyboard.h>
-#include <ddcCharSets.h>
+#include "../lib/ddcString/ddcString.h"
+#include "../lib/ddcPrint/ddcPrint.h"
+#include "../lib/ddcTime/ddcTime.h"
+#include "../lib/ddcDef/ddcDef.h"
+#include "../lib/ddcArguments/ddcArguments.h"
+#include "../lib/ddcScreen/ddcApplication/ddcApplication.h"
+#include "../lib/ddcScreen/ddcCursor/ddcCursor.h"
+#include "../lib/ddcKeyboard/ddcKeyboard.h"
+#include "../lib/ddcCharSets/ddcCharSets.h"
 #include <time.h>
 #include <pthread.h>
 #include <stdlib.h>
@@ -40,40 +40,40 @@ snake make_snake(ddsize _sc, ddColor _sfg)
 }
 void draw_snake(snake s)
 {
-	cursor_colorPush();
-	cursor_setFGColor(s.snakeColor);
+	cursor_color_push();
+	cursor_set_fg_color(s.snakeColor);
 	for (int i = 0; i < s.snakeLength; i++)
 	{
-		cursor_moveTo(s.snakePoss[i].x*2, s.snakePoss[i].y);
-		cursor_chWrite(cset_block);
-		cursor_chWrite(cset_block);
+		cursor_move_to(s.snakePoss[i].x*2, s.snakePoss[i].y);
+		cursor_write_cstring(cset_block);
+		cursor_write_cstring(cset_block);
 	}
-	cursor_colorPop();
+	cursor_color_pop();
 }
 void clear_snake(snake s)
 {
-	cursor_colorPush();
-	cursor_setFGColorRGB(0,0,0);
+	cursor_color_push();
+	cursor_set_fg_color_rgb(0,0,0);
 	for (int i = 0; i < s.snakeLength; i++)
 	{
-		cursor_moveTo(s.snakePoss[i].x*2, s.snakePoss[i].y);
-		cursor_chWrite(cset_block);
-		cursor_chWrite(cset_block);
+		cursor_move_to(s.snakePoss[i].x*2, s.snakePoss[i].y);
+		cursor_write_cstring(cset_block);
+		cursor_write_cstring(cset_block);
 	}
-	cursor_colorPop();
+	cursor_color_pop();
 
 }
 void clear_snake_head(snake s)
 {
-	cursor_colorPush();
-	cursor_setFGColorRGB(0,0,0);
-	cursor_moveTo(s.snakePoss[0].x*2, s.snakePoss[0].y);
-	cursor_chWrite(cset_block);
-	cursor_chWrite(cset_block);
-	cursor_moveTo(s.snakePoss[s.snakeLength-1].x*2, s.snakePoss[s.snakeLength-1].y);
-	cursor_chWrite(cset_block);
-	cursor_chWrite(cset_block);
-	cursor_colorPop();
+	cursor_color_push();
+	cursor_set_fg_color_rgb(0,0,0);
+	cursor_move_to(s.snakePoss[0].x*2, s.snakePoss[0].y);
+	cursor_write_cstring(cset_block);
+	cursor_write_cstring(cset_block);
+	cursor_move_to(s.snakePoss[s.snakeLength-1].x*2, s.snakePoss[s.snakeLength-1].y);
+	cursor_write_cstring(cset_block);
+	cursor_write_cstring(cset_block);
+	cursor_color_pop();
 
 }
 void shift_snake(snake* s)
@@ -127,12 +127,12 @@ ddVec2 random_food(void)
 
 void draw_food(ddVec2 f)
 {
-	cursor_colorPush();
-	cursor_setFGColorRGB(0,255,0);
-	cursor_moveTo(f.x*2, f.y);
-	cursor_chWrite(cset_block);
-	cursor_chWrite(cset_block);
-	cursor_colorPop();
+	cursor_color_push();
+	cursor_set_fg_color_rgb(0,255,0);
+	cursor_move_to(f.x*2, f.y);
+	cursor_write_cstring(cset_block);
+	cursor_write_cstring(cset_block);
+	cursor_color_pop();
 }
 void snake_eat_food(snake* s, ddVec2* f)
 {
@@ -278,7 +278,7 @@ int main(ddsize agsc, char** ags)
 
 	run_ddApplication(&v_da);
 
-	cursor_moveTo(0,40);
+	cursor_move_to(0,40);
 
 	exit_ddApplication(&v_da);
 

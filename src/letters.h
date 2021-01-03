@@ -2,13 +2,13 @@
 #define __snake_letters__
 
 
-#include <ddcString.h>
-#include <ddcPrint.h>
-#include <ddcTime.h>
-#include <ddcDef.h>
-#include <ddcArguments.h>
-#include <ddcApplication.h>
-#include <ddcCursor.h>
+#include "../lib/ddcString/ddcString.h"
+#include "../lib/ddcPrint/ddcPrint.h"
+#include "../lib/ddcTime/ddcTime.h"
+#include "../lib/ddcDef/ddcDef.h"
+#include "../lib/ddcArguments/ddcArguments.h"
+#include "../lib/ddcScreen/ddcApplication/ddcApplication.h"
+#include "../lib/ddcScreen/ddcCursor/ddcCursor.h"
 
 void draw_letter_s(ddVec2 s)
 {
