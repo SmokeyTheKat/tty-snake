@@ -1,4 +1,4 @@
-# ttySnake
+# tty-snake
 
 Simple terminal snake game yo.
 
